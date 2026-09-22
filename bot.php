@@ -11,7 +11,7 @@ define('API_KEY' , railway_token('MANAGER_TOKEN',"1924776811:AAE97-fA3eqztzSsUai
 $userbott = "USERBOT";
 $con=railway_mysql();
 // Check connection
-if (mysqli_connect_errno($con))
+if (mysqli_connect_errno())
  {
    sm(1377243724,"Failed to connect $userbott to MySQL: " . mysqli_connect_error());
    

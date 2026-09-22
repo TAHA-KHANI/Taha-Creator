@@ -9,7 +9,7 @@ $railway_base=railway_base_url();
 $con=railway_mysql();
 
 // Check connection
-if (mysqli_connect_errno($con))
+if (mysqli_connect_errno())
  {
    sm($admin,"Failed to connect to MySQL: " . mysqli_connect_error());
  }else{
