@@ -16,7 +16,12 @@ function tc_db(){
  \mysqli_report(MYSQLI_REPORT_OFF);
  $candidate=@new \mysqli(tc_env('MYSQLHOST'),tc_env('MYSQLUSER'),tc_env('MYSQLPASSWORD'),tc_env('MYSQLDATABASE'),(int)tc_env('MYSQLPORT','3306'));
  $db=$candidate;
- if($db->connect_errno){$db=null;throw new \RuntimeException('Database unavailable; check MYSQL variables.');}
+ if($db->connect_errno){
+  $code=$db->connect_errno;
+  $msg=$db->connect_error;
+  $db=null;
+  throw new \RuntimeException('Database unavailable: '.$code.' '.$msg);
+ }
  $db->set_charset('utf8mb4');
  // Old nullable counters require permissive coercion; all IDs are BIGINT.
  $db->query("SET SESSION sql_mode='NO_ENGINE_SUBSTITUTION'");
@@ -24,9 +29,9 @@ function tc_db(){
 }
 function tc_stmt($sql,$args=[]){
  $s=tc_db()->prepare($sql);
- if(!$s)throw new \RuntimeException('Database prepare failed: '.tc_db()->errno);
+ if(!$s)throw new \RuntimeException('Database prepare failed: '.tc_db()->errno.' '.tc_db()->error);
  if($args){$types=str_repeat('s',count($args));$s->bind_param($types,...$args);}
- if(!$s->execute())throw new \RuntimeException('Database execution failed: '.$s->errno);
+ if(!$s->execute())throw new \RuntimeException('Database execution failed: '.$s->errno.' '.$s->error);
  return $s;
 }
 function tc_rows($sql,$args=[]){return tc_stmt($sql,$args)->get_result()->fetch_all(MYSQLI_ASSOC);}
@@ -80,10 +85,10 @@ function tc_schema($bot=''){
    if(isset($columns[$key]))$defs[]='PRIMARY KEY ('.tc_ident($key).')';
   }
   if($prefix==='amarbot')$defs[]='UNIQUE KEY bot_unique (`bot`)';
-  if(!tc_db()->query('CREATE TABLE IF NOT EXISTS '.tc_ident($table).' ('.implode(',',$defs).') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'))throw new \RuntimeException('Schema creation failed '.$table);
+  if(!tc_db()->query('CREATE TABLE IF NOT EXISTS '.tc_ident($table).' ('.implode(',',$defs).') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'))throw new \RuntimeException('Schema creation failed '.$table.': '.tc_db()->errno.' '.tc_db()->error);
   $existing=[];foreach(tc_rows('SHOW COLUMNS FROM '.tc_ident($table)) as $r)$existing[strtolower($r['Field'])]=true;
   foreach($columns as $c=>$t)if(!isset($existing[strtolower($c)])){
-   if(!tc_db()->query('ALTER TABLE '.tc_ident($table).' ADD '.tc_ident($c).' '.$t.' NULL'))throw new \RuntimeException('Column migration failed '.$table);
+   if(!tc_db()->query('ALTER TABLE '.tc_ident($table).' ADD '.tc_ident($c).' '.$t.' NULL'))throw new \RuntimeException('Column migration failed '.$table.'.'.$c.': '.tc_db()->errno.' '.tc_db()->error);
   }
  }
  if($bot!==''){
