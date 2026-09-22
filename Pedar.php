@@ -340,7 +340,7 @@ function isetcol($table,$roow,$chatid){
 	global $con;
 $query = "SELECT $roow FROM $table WHERE $roow='$chatid' ";
 $result = mysqli_query($con,$query);
-if(count(mysqli_fetch_array($result)) == 0 ) return false; else return true;
+if(safe_count(mysqli_fetch_array($result)) == 0 ) return false; else return true;
 }
 function columnexsits($table,$row){
 $result = mysql_query($con,"SHOW COLUMNS FROM `$table` LIKE '$row'");
@@ -564,10 +564,10 @@ $tozihat = getvalue("foroshmahsol","id",$id,"tozihat");
 $typea = getvalue("foroshmahsol","id",$id,"type");
 $likeone = getvalue("foroshmahsol","id",$id,"like");
 $exp1= explode(",",$likeone);
-$like = count($exp1)-1;
+$like = safe_count($exp1)-1;
 $dislikeone = getvalue("foroshmahsol","id",$id,"dislike");
 $exp2= explode(",",$dislikeone);
-$dislike = count($exp2)-1;
+$dislike = safe_count($exp2)-1;
 if($typea=="text"){
 	$nok ="متنی ✏";
 	}elseif($typea=="photo"){
@@ -645,10 +645,10 @@ if(!in_array($qid,$exp1)){
 		}
 		$likeone = getvalue("foroshmahsol","id",$id,"like");
 $exp1= explode(",",$likeone);
-						$like = count($exp1)-1;
+						$like = safe_count($exp1)-1;
 $dislikeone = getvalue("foroshmahsol","id",$id,"dislike");
 $exp2= explode(",",$dislikeone);
-$dislike = count($exp2)-1;
+$dislike = safe_count($exp2)-1;
 $keyfor = json_encode([
 "inline_keyboard"=>[
 [["text"=>"📥خرید محصول📥",'callback_data'=>"mahsol-+-$id"]],
@@ -668,10 +668,10 @@ erm($querychatid,$qmid,$keyfor);
 $seller = getvalue("foroshmahsol","id",$id,"sellerid");
 $likeone = getvalue("foroshmahsol","id",$id,"like");
 $exp1= explode(",",$likeone);
-$like = count($exp1)-1;
+$like = safe_count($exp1)-1;
 $dislikeone = getvalue("foroshmahsol","id",$id,"dislike");
 $exp2= explode(",",$dislikeone);
-$dislike = count($exp2)-1;
+$dislike = safe_count($exp2)-1;
 if(!in_array($qid,$exp2)){
 	if(in_array($qid,$exp1)){
 	$str = str_replace("$qid,","",$likeone);
@@ -690,10 +690,10 @@ if(!in_array($qid,$exp2)){
 		}
 		$likeone = getvalue("foroshmahsol","id",$id,"like");
 $exp1= explode(",",$likeone);
-						$like = count($exp1)-1;
+						$like = safe_count($exp1)-1;
 $dislikeone = getvalue("foroshmahsol","id",$id,"dislike");
 $exp2= explode(",",$dislikeone);
-$dislike = count($exp2)-1;
+$dislike = safe_count($exp2)-1;
 						$keyfor = json_encode([
 "inline_keyboard"=>[
 [["text"=>"📥خرید محصول📥",'callback_data'=>"mahsol-+-$id"]],
@@ -791,10 +791,10 @@ erm($querychatid,$qmid,$keyfor);
 						setvalue("foroshmahsol","id",$id,"Other",$tedad);
 						$likeone = getvalue("foroshmahsol","id",$id,"like");
 $exp1= explode(",",$likeone);
-						$like = count($exp1)-1;
+						$like = safe_count($exp1)-1;
 $dislikeone = getvalue("foroshmahsol","id",$id,"dislike");
 $exp2= explode(",",$dislikeone);
-$dislike = count($exp2)-1;
+$dislike = safe_count($exp2)-1;
 						$keyfor = json_encode([
 "inline_keyboard"=>[
 [["text"=>"📥خرید محصول📥",'callback_data'=>"mahsol-+-$id"]],
@@ -1530,7 +1530,7 @@ Channel : @Taha_Creator
 																}
 															}
 	}elseif($text=="پاکسازی اپدیت های در حال انتظار☢️"){
-$coun = count(getallvalue("qw$chatid","bot"));
+$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -1598,7 +1598,7 @@ if($text=="برگشت↪"){
 													step($chatid,"");
 													sm($chatid,"به عقب برگشتید :",$keyasli);
 												}elseif($text=="فروش ربات"){
-													$coun = count(getallvalue("qw$chatid","bot"));
+													$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -1948,10 +1948,10 @@ elseif($step=="foroshbot"){
 																	$name = $res->first_name;
 																	$user = $res->username;
 																	$time=date("h:i:s");
-																	$amar= count(getallvalue("user$bot","chatid"));
+																	$amar= safe_count(getallvalue("user$bot","chatid"));
 																	$gl = getallvalue("dok$bot","dokme");
 //$cv =json_encode($gl);
-					$dok=count($gl);
+					$dok=safe_count($gl);
 					$coinall = getvalue("user","chatid",$chatid,"Other5");
 																	$price = getvalue("foroshgah","bot",$bot,"price");
 																	$tozi = getvalue("foroshgah","bot",$bot,"tozih");
@@ -2011,10 +2011,10 @@ sm($chatid,"⭐️ربات شما با موفقیت در کانال فروشگا
 																	$name = $res->first_name;
 																	$user = $res->username;
 																	$time=date("h:i:s");
-																	$amar= count(getallvalue("user$bot","chatid"));
+																	$amar= safe_count(getallvalue("user$bot","chatid"));
 																	$gl = getallvalue("dok$bot","dokme");
 //$cv =json_encode($gl);
-					$dok=count($gl);
+					$dok=safe_count($gl);
 																	$price = getvalue("foroshgah","bot",$bot,"price");
 																	$tozi = getvalue("foroshgah","bot",$bot,"tozih");
 																	createrow("foroshgah","price","forosh$day","TEXT");
@@ -2058,7 +2058,7 @@ sm($chatid,"⭐️ربات شما با موفقیت در کانال فروشگا
 																	}
 															}
 elseif($text=="انتقال مالکیت💠"){
-												$coun = count(getallvalue("qw$chatid","bot"));
+												$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2136,7 +2136,7 @@ sm($chatid,$txt);
 													}
 											elseif($text=="اپدیت ربات🆙"){
 												
-											$coun = count(getallvalue("qw$chatid","bot"));
+											$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2173,7 +2173,7 @@ sm($chatid,$txt,$keyasli);
 													}
 													}elseif($text=="تنظیم وبهوک اتوماتیک🎫"){
 												
-											$coun = count(getallvalue("qw$chatid","bot"));
+											$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2204,7 +2204,7 @@ sm($chatid,$txt,$keyasli);
 														}
 													}
 													}elseif($text=="حذف ربات🚮"){
-																$coun = count(getallvalue("qw$chatid","bot"));
+																$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 												$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2363,7 +2363,7 @@ deletevalue("amarbot","bot",$user);
 															
 															}elseif($text=="ربات های من🤖"){
 												$mybots = getallvalue("qw$chatid","bot");
-												$coun = is_countable($mybots) ? count($mybots) : 0;
+												$coun = is_countable($mybots) ? safe_count($mybots) : 0;
 											if($coun== 0 || empty($mybots)){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2426,7 +2426,7 @@ sm($chatid,$txt);
 																	}
 														}
 												}elseif($text=="♻️تغییر توکن"){
-											$coun = count(getallvalue("qw$chatid","bot"));
+											$coun = safe_count(getallvalue("qw$chatid","bot"));
 											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
 											$txt="شما هنوز رباتی نساخته اید❌
 
@@ -2499,7 +2499,7 @@ sm($chatid,$txt);
 	step($chatid,"");
 	$get=file_get_contents("karbar.txt");
 	$exp=explode("\n",$get);
-	$count=count($exp);	
+	$count=safe_count($exp);	
 		if(!file_exists("foreach.txt")){
 		file_put_contents("foreach.txt",0);
 }
@@ -2552,11 +2552,11 @@ unlink("foreach.txt");
 																elseif($text=="Amar"){
 																	$get=file_get_contents("karbar.txt");
 																				$exp = explode("\n",$get);
-																	$c = count($exp);
+																	$c = safe_count($exp);
 																	sm($chatid,$c);
 																	}elseif($text=="آمار کلی"){
-																		$karbar=count(getallvalue("user","chatid"));
-																		$amarbot=count(getallvalue("amarbot","token"));
+																		$karbar=safe_count(getallvalue("user","chatid"));
+																		$amarbot=safe_count(getallvalue("amarbot","token"));
 			$txt="آمار کاربران  : $karbar\nآمار ربات ها : $amarbot";
 					sm($chatid,$txt);						
 																									}

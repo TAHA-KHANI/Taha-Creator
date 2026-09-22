@@ -595,7 +595,7 @@ foreach($get as $key){
 $getallbot =getallvalue("amarbot","bot");
 $list="";
 foreach($getallbot as $zd){
-	$cout = count(getallvalue("user$zd","chatid"));
+	$cout = safe_count(getallvalue("user$zd","chatid"));
 	
  $list .= " @$zd | $cout\n";
  }
@@ -634,10 +634,10 @@ sm($chatid,"Addded :)");
 }elseif($text=="amarkoli"){
 $allbot = getallvalue("amarbot","bot");
 $x = 0;
-$count = count($allbot);
+$count = safe_count($allbot);
 sm($chatid,"please wait for $count");
 foreach($allbot as $key){
- $amar = count(getallvalue("user$key"));
+ $amar = safe_count(getallvalue("user$key"));
  $x = $x + $amar;
  }
  sm($chatid,"amar kol in $x");

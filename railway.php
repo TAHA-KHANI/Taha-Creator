@@ -1,4 +1,12 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors','0');
+ini_set('log_errors','1');
+
+function safe_count($value){
+    return is_countable($value) ? count($value) : 0;
+}
+
 function railway_env($key,$default=''){
     $value=getenv($key);
     return $value===false || $value==='' ? $default : $value;
