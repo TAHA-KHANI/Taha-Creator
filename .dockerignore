@@ -1,0 +1,7 @@
+.git
+.env
+upload
+original
+*.zip
+docs
+tools
