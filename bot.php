@@ -96,7 +96,6 @@ function bot($method,$datas=[]){
     $ch = curl_init();
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
 curl_setopt($ch, CURLOPT_HEADER, 200);
     curl_setopt($ch,CURLOPT_POSTFIELDS,http_build_query($datas));
     $res = curl_exec($ch);

@@ -83,7 +83,6 @@ function bot($method,$datas=[]){
     $ch = curl_init();
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
     curl_setopt($ch,CURLOPT_POSTFIELDS,http_build_query($datas));
     $res = curl_exec($ch);
     if(curl_error($ch)){
@@ -953,30 +952,15 @@ if($step=="getcaptha1" && $type=="private" ){
 									
 									///================
 								if( $chatid !=$admin){
-			$url2 = json_decode(file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=@Taha_Creator&user_id=$chatid"),true);
+			$url2 = json_decode(file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=@NorseGem&user_id=$chatid"),true);
 			$status = $url2["result"]["status"];
 			if($status !== "creator" && $status !== "administrator" && $status !=="member"){
 				$keybo=json_encode([
 'inline_keyboard'=>[
-[["text"=>"کانال اول📣","url"=>"https://t.me/Taha_Creator"]],
-[["text"=>"کانال دوم📣","url"=>"https://t.me/Taha_Buybot"]],
+[["text"=>"کانال📣","url"=>"https://t.me/NorseGem"]],
 ]
 ]);
-				sm($chatid,"لطفا ابتدا در کانال های ما عضو شوید ⛔\n\n@Taha_Creator\n@Taha_Buybot\n\nسپس پس از عضو شدن /start رو بزنید\n/start\n/start",$keybo);
-	return false;
-			}
-			}
-			if($chatid !=$admin){
-			$url2 = json_decode(file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=@Taha_Buybot&user_id=$chatid"),true);
-			$status = $url2["result"]["status"];
-			if($status !== "creator" && $status !== "administrator" && $status !=="member"){
-				$keybo=json_encode([
-'inline_keyboard'=>[
-[["text"=>"کانال اول📣","url"=>"https://t.me/Taha_Creator"]],
-[["text"=>"کانال دوم📣","url"=>"https://t.me/Taha_Buybot"]],
-]
-]);
-				sm($chatid,"لطفا ابتدا در کانال های ما عضو شوید ⛔\n\n@Taha_Creator\n@Taha_Buybot\n\nسپس پس از عضو شدن /start رو بزنید\n/start\n/start",$keybo);
+				sm($chatid,"لطفا ابتدا در کانال ما عضو شوید ⛔\n\n@NorseGem\n\nسپس پس از عضو شدن /start رو بزنید\n/start\n/start",$keybo);
 	return false;
 			}
 			}
