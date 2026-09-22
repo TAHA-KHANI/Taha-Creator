@@ -15,7 +15,7 @@ $img=imagecreate($img_width,$img_height);
 
 
 $bar_width=20;
-$total_bars=count($values);
+$total_bars=safe_count($values);
 $gap= ($graph_width- $total_bars * $bar_width ) / ($total_bars +1);
 
 

@@ -268,7 +268,7 @@ $name = $row["name"];
 $userid = $row["userid"];
 }
 $expl = explode(",",$userid);
-$cot = count($expl)-1;
+$cot = safe_count($expl)-1;
 
 $array[$y][$x]=["text"=>"$name ($cot)","callback_data"=>$expp[1]."+-+".$expp[0]."--+--"];
 			}
@@ -325,7 +325,7 @@ $name = $row["name"];
 $userid = $row["userid"];
 }
 $expl = explode(",",$userid);
-$cot = count($expl)-1;
+$cot = safe_count($expl)-1;
 
 $array[$y][$x]=["text"=>"$name ($cot)","callback_data"=>$expp[1]."+-+".$expp[0]."--+--"];
 			}
@@ -391,7 +391,7 @@ if(empty($time2) && empty($name)){
 	$array[$y][$x]=["text"=>$expp[0]." (0)","callback_data"=>$expp[1]."+-+".$expp[0]."--+--"];
 		}else{
 $expl = explode(",",$userid);
-$cot = count($expl)-1;
+$cot = safe_count($expl)-1;
 
 $array[$y][$x]=["text"=>"$name ($cot)","callback_data"=>$expp[1]."+-+".$expp[0]."--+--"];
 			}
@@ -1253,7 +1253,7 @@ if(preg_match('/RANDOM\(([^\']+)\)/U',$teext)){
 		preg_match('/RANDOM\(([^\']+)\)/U',$teext,$ma);
 		$random=$ma[1];
 		$exp=explode(",",$random);
-		$count=count($exp)-1;
+		$count=safe_count($exp)-1;
 		$rand=rand(0,$count);
 		$array1 = array("FIRSTNAME","LASTNAME","USERNAME","USERID","PHONE","BIO","PING","IDBOT","BOTUSER","BOTNAME","GPNAME","PROFILE_PHOTO","BOTLIST","GPUSER","CHATID","DESCRIOPTION","FATYPEBALL","ENTYPEBALL","FATYPEGETBALL","ENTYPEGETBALL","FATYPEBASKET","ENTYPEBASKET","FATYPEGETBASKET","ENTYPEGETBASKET","FATYPEBOWLING","ENTYPEBOWLING","FATYPEGETBOWLING","ENTYPEGETBOWLING","GETDICE","DICE","MESSAGEID","COIN","MEMBER","LINK","ALLMEM","HOUR","MINUTE","SECOND","JOINDATEM","JOINDATESH","JOINTIME","TIME","YEAR","MONTH","DAY","DATESH","FASL","HAFTEH","BASTANIBORG","HEYVANSAAL","MAHFA","SALFA","ROOZFA","PHOTO_ID","VIDEO_ID","VIDEO_NOTE_ID","STICKER_ID","DOCUMENT_ID","AUDIO_ID","VOICE_ID","NEW_MEMBER_NAME","NEW_MEMBER_USERNAME","NEW_MEMBER_ID","DATEM","CONTACT_NUMBER","CONTACT_NAME","CONTACT_ID","LONG_LOCATION","LAT_LOCATION","BOTMEM","CHANCE","TEXT");
     if($int==1){
@@ -1828,7 +1828,7 @@ if(preg_match('/RANDOM\(([^\']+)\)/U',$teext)){
 		preg_match('/RANDOM\(([^\']+)\)/U',$teext,$ma);
 		$random=$ma[1];
 		$exp=explode(",",$random);
-		$count=count($exp)-1;
+		$count=safe_count($exp)-1;
 		$rand=rand(0,$count);
 		$array1 = array("FIRSTNAME","LASTNAME","USERNAME","USERID","PHONE","BIO","PING","IDBOT","BOTUSER","BOTNAME","GPNAME","PROFILE_PHOTO","BOTLIST","GPUSER","CHATID","DESCRIOPTION","FATYPEBALL","ENTYPEBALL","FATYPEGETBALL","ENTYPEGETBALL","FATYPEBASKET","ENTYPEBASKET","FATYPEGETBASKET","ENTYPEGETBASKET","FATYPEBOWLING","ENTYPEBOWLING","FATYPEGETBOWLING","ENTYPEGETBOWLING","GETDICE","DICE","MESSAGEID","COIN","MEMBER","LINK","ALLMEM","HOUR","MINUTE","SECOND","JOINDATEM","JOINDATESH","JOINTIME","TIME","YEAR","MONTH","DAY","DATESH","FASL","HAFTEH","BASTANIBORG","HEYVANSAAL","MAHFA","SALFA","ROOZFA","PHOTO_ID","VIDEO_ID","VIDEO_NOTE_ID","STICKER_ID","DOCUMENT_ID","AUDIO_ID","VOICE_ID","NEW_MEMBER_NAME","NEW_MEMBER_USERNAME","NEW_MEMBER_ID","DATEM","CONTACT_NUMBER","CONTACT_NAME","CONTACT_ID","LONG_LOCATION","LAT_LOCATION","BOTMEM","CHANCE","TEXT");
 	if($int==1){
@@ -4290,7 +4290,7 @@ if(!empty(getvalue("data","id",1,"dokphone"))){
 						}
 				}
 		if((empty(getadmin($chatid)) && $chatid !=$admin)){
-			$cccc =count(getAllchannel());
+			$cccc =safe_count(getAllchannel());
 		if(getLockjoin()=="on" &&  $cccc !=0 && $type=="private"){
 			
 			$xc = getAllchannel();
@@ -4319,7 +4319,7 @@ if(preg_match("/(%)([^\']+)(%)/",$ch13,$m)){
 	}	}
 			}
 			if((empty(getadmin($chatid)) && $chatid !=$admin)){
-			$cccc =count(getAllBot());
+			$cccc =safe_count(getAllBot());
 		if(getvalue("data","id",1,"lockrobot")=="on" &&  $cccc !=0 && $type=="private"){
 			
 			$xc = getAllBot();
@@ -5849,7 +5849,7 @@ if(preg_match("/(%)([^\']+)(%)/",$ch13,$m)){
 }
 		}elseif(getDokmenok($querydata)=="matnrand"){
 		$get = json_decode(getDokmetext($querydata),true);
-$cou = count($get)-1;
+$cou = safe_count($get)-1;
 $rand=rand(0,$cou);
 $type = $get[$rand]['type'];
 	$tet = $get[$rand]['text'];
@@ -6945,7 +6945,7 @@ $sg = sm($querychatid,$texxt,$kei);
 }
 		}elseif(getDokmenok($querydata)=="matnrand"){
 		$get = json_decode(getDokmetext($querydata),true);
-$cou = count($get)-1;
+$cou = safe_count($get)-1;
 $rand=rand(0,$cou);
 $type = $get[$rand]['type'];
 	$tet = $get[$rand]['text'];
@@ -10037,7 +10037,7 @@ $cap=str_replace("/r/n/r","\n",$ch13);
 }
 		}elseif(getDokmenok($bmm)=="matnrand"){
 		$get = json_decode(getDokmetext($bmm),true);
-$cou = count($get)-1;
+$cou = safe_count($get)-1;
 $rand=rand(0,$cou);
 $type = $get[$rand]['type'];
 	$tet = $get[$rand]['text'];
@@ -11023,7 +11023,7 @@ $type = $nok['type'];
 }ToDie();
 		}elseif(getDokmenok($text)=="matnrand"){
 		$get = json_decode(getDokmetext($text),true);
-$cou = count($get)-1;
+$cou = safe_count($get)-1;
 $rand=rand(1,$cou);
 $type = $get[$rand]['type'];
 	$tet = $get[$rand]['text'];
@@ -12133,7 +12133,7 @@ if($text=="برگشت↪"){
 ⚠️لطفا توجه داشته باشید ربات باید حتما توسط طاها کریتور ساخته شده باشد.";
 sm($chatid,$txt,$keyback);
 						}elseif($text=="➖حذف ربات"){
-							$co = count(getAllBot());
+							$co = safe_count(getAllBot());
 							if($co == 0){
 								$txt="هیچ رباتی هنوز شما ثبت نکرده اید🚫";
 								sm($chatid,$txt);
@@ -12143,7 +12143,7 @@ sm($chatid,$txt,$keyback);
 sm($chatid,$txt,$keyback);
 								}
 							}elseif($text=="🔘لیست ربات ها"){
-								$co = count(getAllBot());
+								$co = safe_count(getAllBot());
 							if($co == 0){
 								$txt="هیچ رباتی هنوز شما ثبت نکرده اید🚫";
 								sm($chatid,$txt);
@@ -12246,7 +12246,7 @@ elseif($step=="joinchannel"){
 🔴توجه داشته باشید اگر ربات را از ادمینی کانال بردارید ، دکمه ی شما پس از جوین کاربر در کانال شما همچنان قفل خواهد ماند.";
 sm($chatid,$txt,$keyback);
 						}elseif($text=="➖حذف کانال"){
-							$co = count(getAllchannel());
+							$co = safe_count(getAllchannel());
 							if($co == 0){
 								$txt="هیچ کانالی هنوز شما ثبت نکرده اید 🚫";
 								sm($chatid,$txt);
@@ -12259,7 +12259,7 @@ sm($chatid,$txt,$keyback);
 								sm($chatid,$txt,$keyback);
 								}
 							}elseif($text=="🔘لیست کانال ها"){
-								$co = count(getAllchannel());
+								$co = safe_count(getAllchannel());
 							if($co == 0){
 								$txt="هیچ کانالی هنوز شما ثبت نکرده اید 🚫";
 								sm($chatid,$txt);
@@ -12836,7 +12836,7 @@ if($text=="برگشت↪"){
 ⚠️نام دیتابیس را بصورت حروف بزرگ ارسال کنید",$keyback);		
 						}elseif($text=="لیست دیتابیس ها🔘"){
 							$list = getallvalue("datatype","name");
-							$co = count($list);
+							$co = safe_count($list);
 							if($co == 0){
 								sm($chatid,"🛑شما هنوز هیچ دیتابیسی نساخته اید!!
 
@@ -12881,7 +12881,7 @@ elseif($text=="تعیین دسترسی ادمین🛂"){
 					sm($chatid,"لطفا ایدی عددی کاربر را وارد کنید",$keyback);		
 						}elseif($text=="لیست ادمین ها🔘"){
 							$list = getallvalue("admin","chatid");
-							$co = count($list);
+							$co = safe_count($list);
 							if($co == 0){
 								sm($chatid,"لیست ادمین ها خالی میباشد🚫\n\nبا دستور افزودن ادمین ، برای ربات ادمین تعیین کنید .");
 								}else{
@@ -14450,7 +14450,7 @@ sm($chatid,$txt);
 					$end=0;
 					$sum = $key;
 					
-					$count = count($array);
+					$count = safe_count($array);
 					while(true){
 					$end=1;
 					if(getInto($sum)==$vb){
@@ -16672,7 +16672,7 @@ SECOND ثانیه
 							sm($chatid,$txt,$keyback);
 							}else{
 							$get =json_decode(getDokmetext($vb));
-							$count = count($get);
+							$count = safe_count($get);
 							if($count >= 30){
 								step($chatid,"noyes");
 								$txt="این دکمه به حداکثر تعداد ثبت خود رسیده !!\n\nآیا میخواهید این پست ها پاک شود و محتویات جدید افزوده شود؟!!";
@@ -16708,7 +16708,7 @@ SECOND ثانیه
 							sm($chatid,$txt,$keyback);
 							}else{
 							$get = getDokmetext($vb);
-							$count = count($get);
+							$count = safe_count($get);
 							if($count >= 30){
 								step($chatid,"noyesrand");
 								$txt="این دکمه به حداکثر تعداد ثبت خود رسیده !!\n\nآیا میخواهید این پست ها پاک شود و محتویات جدید افزوده شود؟!!";
@@ -18820,7 +18820,7 @@ step($chatid,"panel");
 					$end=0;
 					$sum = $key;
 					
-					$count = count($array);
+					$count = safe_count($array);
 					while(true){
 					$end=1;
 					if(getInto($sum)==$vb){
@@ -18970,7 +18970,7 @@ step($chatid,"panel");
 						}else{
 						//$file=file_get_contents("dokme/$vb.json");
 						$get = json_decode(getDokmetext($vb));
-						$count = count($get);
+						$count = safe_count($get);
 						if($count >= 30){
 							$txt="
 							شما به حداکثر ثبت رسیده اید!!!🚫
@@ -19176,7 +19176,7 @@ step($chatid,"panel");
 						}else{
 						//$file=file_get_contents("dokme/$vb.json");
 						$get = json_decode(getDokmetext($vb));
-						$count = count($get);
+						$count = safe_count($get);
 						if($count >= 30){
 							$txt="
 							شما به حداکثر ثبت رسیده اید!!!🚫
@@ -20633,7 +20633,7 @@ elseif($step=="getpmmohtava"){
 				sm($chatid,"عملیات لغو شد و به عقب برگشتید↪\n\nچکاری میخواید انجام بدید؟",$keycreate);
 				}else{
 					if(!empty(getallvalue("moh","dokme"))){
-					$count = count(getallvalue("moh","dokme"))+1;
+					$count = safe_count(getallvalue("moh","dokme"))+1;
 					$coon = "TEXT_$count";
 					
 					}else{
@@ -22194,7 +22194,7 @@ elseif($step=="getpmmohtavahar"){
 				sm($chatid,"عملیات لغو شد و به عقب برگشتید↪\n\nچکاری میخواید انجام بدید؟",$keycreate);
 				}else{
 					if(!empty(getallvalue("moh","dokme"))){
-					$count = count(getallvalue("moh","dokme"))+1;
+					$count = safe_count(getallvalue("moh","dokme"))+1;
 					$coon = "TEXT_$count";
 					
 					}else{
@@ -23771,7 +23771,7 @@ elseif($step=="getpmmohtavapain"){
 				sm($chatid,"عملیات لغو شد و به عقب برگشتید↪\n\nچکاری میخواید انجام بدید؟",$keycreate);
 				}else{
 					if(!empty(getallvalue("moh","dokme"))){
-					$count = count(getallvalue("moh","dokme"))+1;
+					$count = safe_count(getallvalue("moh","dokme"))+1;
 					$coon = "TEXT_$count";
 					
 					}else{

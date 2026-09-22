@@ -22,7 +22,7 @@ $post[$i]['date'][] = strip_tags(urldecode($date[2][$i]));
    }
 $xml = new SimpleXMLElement('<rootTag/>'); 
     if ($username != '' && $text != ''){  $a = search_post ($username , $text);
-  if (count ($a) <= 0){
+  if (safe_count($a) <= 0){
     if (preg_match('/^[Xx][Mm][Ll]$/', $type)){
 header('Content-Type: application/xml');
 to_xml($xml, ['ok'=>false, 'result'=>null , 'count_result'=>0]);
@@ -35,11 +35,11 @@ echo json_encode(['ok'=>false, 'result'=>null , 'count_result'=>0] ,JSON_PRETTY_
  $a = search_post( $username , $text);
  if(preg_match('/^[Xx][Mm][Ll]$/', $type)){
 header('Content-Type: application/xml');
-to_xml($xml,['ok'=>true, 'result'=>$a , 'count_result'=>count ( $a)]);
+to_xml($xml,['ok'=>true, 'result'=>$a , 'count_result'=>safe_count( $a)]);
 echo $xml->asXML ();
     }else{
   header('Content-Type: application/json');
- echo json_encode(['ok'=>true, 'result'=>$a , 'count_result'=>count ( $a)] ,JSON_PRETTY_PRINT );
+ echo json_encode(['ok'=>true, 'result'=>$a , 'count_result'=>safe_count( $a)] ,JSON_PRETTY_PRINT );
      }
   }
    }else {
