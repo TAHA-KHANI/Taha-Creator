@@ -6,7 +6,7 @@ try{
  if(!is_dir($root.'/BotList'))mkdir($root.'/BotList',0700,true);
  // Refresh shared template aliases every deploy; generated bots are refreshed from registry.
  foreach(['Haji.php','Function.php'] as $name){$p=$root.'/'.$name;if(is_link($p))unlink($p);if(!file_exists($p))symlink(TC_APP.'/legacy/'.$name,$p);}
- $ok=false;for($i=0;$i<30;$i++){try{tc_install();$ok=true;break;}catch(\Throwable $e){sleep(2);}}
+ $ok=false;for($i=0;$i<30;$i++){try{tc_install();$ok=true;break;}catch(\Throwable $e){error_log('Database initialization attempt '.($i+1).': '.get_class($e).' - '.$e->getMessage());sleep(2);}}
  if(!$ok)throw new \RuntimeException('Database initialization failed; verify variables and DB service.');
  foreach(tc_rows('SELECT * FROM amarbot') as $b)tc_generate($b['bot'],$b['token'],$b['creatorid']);
  tc_stmt("REPLACE INTO tc_meta(name,value) VALUES ('worker_heartbeat',?)",[time()]);
