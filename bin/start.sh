@@ -4,6 +4,8 @@ PORT="${PORT:-8080}"
 [[ "$PORT" =~ ^[0-9]+$ ]] || exit 1
 umask 077
 php /app/bin/init.php
+a2dismod mpm_event mpm_worker >/dev/null 2>&1 || true
+a2enmod mpm_prefork >/dev/null 2>&1 || true
 sed "s/__PORT__/$PORT/g" /app/bin/apache.conf > /etc/apache2/sites-enabled/000-default.conf
 printf 'Listen %s\n' "$PORT" > /etc/apache2/ports.conf
 php /app/bin/worker.php &
