@@ -1,7 +1,7 @@
 <?php
 namespace Taha;
 const TC_APP = __DIR__.'/..';
-const TC_VERSION = '6.0-railway';
+const TC_VERSION = '6.0-railway-pkfix';
 function tc_env($key,$default=''){ $v=getenv($key); return $v===false ? $default : $v; }
 define('Taha\\TC_OWNER_ID', tc_env('OWNER_ID'));
 define('Taha\\TC_LOG_CHAT', tc_env('LOG_CHAT_ID',tc_env('OWNER_ID')));
@@ -76,14 +76,15 @@ function tc_schema($bot=''){
  $scope=$bot===''?'central':'child';
  foreach($all[$scope] as $prefix=>$columns){
   $table=$prefix.$bot; $defs=[];
+  $primaryKey=null;
+  if(in_array($prefix,['user','data','dayamar','fileid','eshtrak'],true)){
+   $primaryKey= $prefix==='user'||$prefix==='fileid'?'chatid':($prefix==='dayamar'?'day':'id');
+  }
   foreach($columns as $c=>$t){
    if($prefix==='amarbot' && $c==='bot')$t='VARCHAR(64)';
-   $defs[]=tc_ident($c).' '.$t.' NULL';
+   $defs[]=tc_ident($c).' '.$t.($c===$primaryKey?' NOT NULL':' NULL');
   }
-  if(in_array($prefix,['user','data','dayamar','fileid','eshtrak'],true)){
-   $key= $prefix==='user'||$prefix==='fileid'?'chatid':($prefix==='dayamar'?'day':'id');
-   if(isset($columns[$key]))$defs[]='PRIMARY KEY ('.tc_ident($key).')';
-  }
+  if($primaryKey!==null && isset($columns[$primaryKey]))$defs[]='PRIMARY KEY ('.tc_ident($primaryKey).')';
   if($prefix==='amarbot')$defs[]='UNIQUE KEY bot_unique (`bot`)';
   if(!tc_db()->query('CREATE TABLE IF NOT EXISTS '.tc_ident($table).' ('.implode(',',$defs).') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'))throw new \RuntimeException('Schema creation failed '.$table.': '.tc_db()->errno.' '.tc_db()->error);
   $existing=[];foreach(tc_rows('SHOW COLUMNS FROM '.tc_ident($table)) as $r)$existing[strtolower($r['Field'])]=true;
