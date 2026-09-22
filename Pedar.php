@@ -1016,7 +1016,7 @@ $keynoyes=json_encode([
 ]);
 $keyasli=json_encode([
 "keyboard"=>[
-[["text"=>"ساخت ربات🔩(غیرفعال)"]],
+[["text"=>"ساخت ربات🔩"]],
 [["text"=>"اپدیت ربات🆙"],["text"=>"♻️تغییر توکن"]],
 [["text"=>"انتقال مالکیت💠"],["text"=>"تنظیم وبهوک اتوماتیک🎫"]],
 [["text"=>"پاکسازی اپدیت های در حال انتظار☢️"]],
@@ -1122,7 +1122,7 @@ $link
 							sm($chatid,$txt1);
 							sm($chatid,$txt2);
 							sm($chatid,$txt3,$keyasli);
-							}elseif($text=="ساخت ربات🔩(خاموش)" || $text=="/newbot"){
+							}elseif($text=="ساخت ربات🔩" || $text=="/newbot"){
 									$coin = getvalue("user","chatid",$chatid,"emtiaz");
 									if($coin < 500){
 										$txt="
@@ -2362,8 +2362,9 @@ deletevalue("amarbot","bot",$user);
 																	}
 															
 															}elseif($text=="ربات های من🤖"){
-												$coun = count(getallvalue("qw$chatid","bot"));
-											if($coun== 0 || empty(getallvalue("qw$chatid","bot"))){
+												$mybots = getallvalue("qw$chatid","bot");
+												$coun = is_countable($mybots) ? count($mybots) : 0;
+											if($coun== 0 || empty($mybots)){
 											$txt="شما هنوز رباتی نساخته اید❌
 
 ⭐️با دستور /newbot اقدام به ساخت ربات کنید
